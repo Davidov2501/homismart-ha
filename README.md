@@ -1,87 +1,66 @@
-# HomISmart
+# HomISmart Home Assistant Integration - Installation Guide
 
-A smart home automation system that interfaces with the HomISmart client to control and monitor your smart home devices.
+## 🔧 Fixed Issue
 
-## Installation
+The integration has been updated to fix the async context manager issue with `HomismartClient`.
 
-```bash
-# Install the package and its dependencies
-poetry install
-```
+## 📦 Quick Installation
 
-## Configuration
+1. **Copy Integration Files**
 
-You can set your HomISmart credentials using either environment variables or a .env file:
+   ```
+   Copy the entire `custom_components/homismart/` folder to:
+   /config/custom_components/homismart/
+   ```
 
-### Using environment variables:
+2. **Restart Home Assistant**
 
-```bash
-export HOMISMART_USERNAME="your_email@example.com"
-export HOMISMART_PASSWORD="your_password"
-```
+3. **Add Integration**
+   - Go to Settings → Devices & Services
+   - Click "+ Add Integration"
+   - Search for "HomISmart"
+   - Enter your credentials (same as mobile app)
 
-### Using a .env file:
+## ✅ What to Expect
 
-Create a `.env` file in the project root with the following content:
+After successful setup, your devices will appear as:
 
-```
-HOMISMART_USERNAME="your_email@example.com"
-HOMISMART_PASSWORD="your_password"
-```
+### 🏠 Covers (Shutters/Blinds)
 
-For convenience, you can copy the provided `.env.example` file:
+- `cover.dining_room_shutter` - With position control 0-100%
+- `cover.living_room_shutter`
+- `cover.kitchen_shutter`
+- `cover.parents_room_shutter`
+- `cover.play_room_shutter`
+- `cover.kids_room_shutter`
 
-```bash
-cp .env.example .env
-```
+### 💡 Lights
 
-Then edit the `.env` file with your actual credentials.
+- `light.office_light`
+- `light.kids_room_light`
+- `light.parents_room_light`
+- `light.play_room_light`
+- `light.hall_1`
+- `light.entrance`
 
-## Usage
+### 🔌 Switches & Sockets
 
-After installation, you can run the application using:
+- `switch.office_socket`
+- `switch.parents_room_socket`
+- `switch.kids_room_socket`
+- `switch.play_room_socket`
+- `switch.boiler`
+- Various room lights and switches
 
-```bash
-# Using poetry
-poetry run homismart
+## 🔍 Troubleshooting
 
-# Or directly if you have the virtual environment activated
-homismart
-```
+If you still get connection errors:
 
-## Features
+1. **Check Credentials** - Use the same email/password as your HomISmart mobile app
+2. **Restart Home Assistant** - Sometimes needed after installation
+3. **Check Logs** - Look for HomISmart errors in the logs
+4. **Network Connection** - Ensure HA can reach the internet
 
-- Automatically connects to the HomISmart service using your credentials
-- Lists all your connected devices with their status
-- Monitors device status changes in real-time
-- Provides event handling for device updates
+## 🎉 Success!
 
-## Example Code
-
-Here's a simple example of how to use the HomISmart client in your own scripts:
-
-```python
-import asyncio
-from homismart_client import HomismartClient
-
-async def main():
-    async with HomismartClient() as client:
-        await client.login()
-        devices = client.session.get_all_devices()
-        for device in devices:
-            print(f"{device.name} ({device.device_type}): {device.online}")
-            if device.supports_on_off:
-                await device.turn_on()
-
-asyncio.run(main())
-```
-
-### Event Handling Example
-
-You can register callbacks to respond to device changes:
-
-```python
-def on_update(device):
-    print(f"{device.name} updated: {device}")
-
-client.session.register_event_listener("device_updated", on_update)
+Once working, you'll have **27 devices** automatically discovered and ready to use in automations, scenes, and the Home Assistant UI!
