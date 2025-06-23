@@ -1,0 +1,162 @@
+control_group:
+  name: Control HomISmart Group
+  description: Control multiple HomISmart devices as a group
+  fields:
+    device_ids:
+      name: Device IDs
+      description: List of device IDs to control
+      required: true
+      example: ["device1", "device2", "device3"]
+      selector:
+        object:
+    action:
+      name: Action
+      description: Action to perform on all devices
+      required: true
+      example: "open"
+      selector:
+        select:
+          options:
+            - "open"
+            - "close"
+            - "stop"
+            - "set_position"
+            - "turn_on"
+            - "turn_off"
+    position:
+      name: Position
+      description: Position to set (0-100, only for set_position action)
+      required: false
+      example: 50
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: "%"
+
+open_all_covers:
+  name: Open All Covers
+  description: Open all HomISmart covers/shutters
+  fields:
+    room:
+      name: Room Filter
+      description: Only open covers in specified room (optional)
+      required: false
+      example: "living_room"
+      selector:
+        text:
+
+close_all_covers:
+  name: Close All Covers  
+  description: Close all HomISmart covers/shutters
+  fields:
+    room:
+      name: Room Filter
+      description: Only close covers in specified room (optional)
+      required: false
+      example: "living_room"
+      selector:
+        text:
+
+stop_all_covers:
+  name: Stop All Covers
+  description: Stop all moving HomISmart covers/shutters
+  fields:
+    room:
+      name: Room Filter
+      description: Only stop covers in specified room (optional)
+      required: false
+      example: "living_room"
+      selector:
+        text:
+
+set_covers_position:
+  name: Set Covers Position
+  description: Set position for all HomISmart covers/shutters
+  fields:
+    position:
+      name: Position
+      description: Position to set (0-100, where 0=closed, 100=open)
+      required: true
+      example: 50
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: "%"
+    room:
+      name: Room Filter
+      description: Only set position for covers in specified room (optional)
+      required: false
+      example: "living_room"
+      selector:
+        text:
+
+turn_on_all_lights:
+  name: Turn On All Lights
+  description: Turn on all HomISmart lights
+  fields:
+    room:
+      name: Room Filter
+      description: Only turn on lights in specified room (optional)
+      required: false
+      example: "living_room"
+      selector:
+        text:
+
+turn_off_all_lights:
+  name: Turn Off All Lights
+  description: Turn off all HomISmart lights
+  fields:
+    room:
+      name: Room Filter
+      description: Only turn off lights in specified room (optional)
+      required: false
+      example: "living_room"
+      selector:
+        text:
+
+create_scene:
+  name: Create Scene
+  description: Create a scene from current device states
+  fields:
+    scene_name:
+      name: Scene Name
+      description: Name for the new scene
+      required: true
+      example: "Evening Relaxation"
+      selector:
+        text:
+    include_covers:
+      name: Include Covers
+      description: Include cover positions in the scene
+      required: false
+      default: true
+      selector:
+        boolean:
+    include_lights:
+      name: Include Lights
+      description: Include light states in the scene
+      required: false
+      default: true
+      selector:
+        boolean:
+    room_filter:
+      name: Room Filter
+      description: Only include devices from specified room (optional)
+      required: false
+      example: "living_room"
+      selector:
+        text:
+
+activate_scene:
+  name: Activate Scene
+  description: Activate a previously created HomISmart scene
+  fields:
+    scene_name:
+      name: Scene Name
+      description: Name of the scene to activate
+      required: true
+      example: "Evening Relaxation"
+      selector:
+        text: 

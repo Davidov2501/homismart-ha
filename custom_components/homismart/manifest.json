@@ -1,0 +1,12 @@
+{
+  "domain": "homismart",
+  "name": "HomISmart",
+  "codeowners": ["@homismart"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/Davidov2501/homismart-ha",
+  "integration_type": "hub",
+  "iot_class": "cloud_push",
+  "requirements": ["homismart-client==0.1.4", "python-dotenv==1.0.0"],
+  "version": "1.0.0"
+}
